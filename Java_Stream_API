@@ -1,0 +1,24 @@
+//1. Написать функцию, принимающую список Student и возвращающую список уникальных курсов, на которые подписаны студенты.
+
+    public Set<Course> first(List<Student> students) {
+        return students.stream()
+                .flatMap(Student::getAllCourses)
+                .collect(Collectors.toSet());
+    }
+    
+//2. Написать функцию, принимающую на вход список Student и возвращающую список из трех самых любознательных (любознательность определяется количеством курсов).
+
+    public List<Student> second(List<Student> students){
+        return students.stream()
+                .sorted((student1, student2) -> Integer.compare(student1.getAllCourses().size(), student2.getAllCourses().size()))
+                .limit(3)
+                .collect(Collectors.toList());
+    }
+
+//3. Написать функцию, принимающую на вход список Student и экземпляр Course, возвращающую список студентов, которые посещают этот курс.
+
+    public List<Student> third(List<Student> students, Course course) {
+        return students.stream()
+                .filter(student -> student.getAllCourses().contains(course))
+                .collect(Collectors.toList());
+    }
